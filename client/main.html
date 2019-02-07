@@ -1,0 +1,161 @@
+<head>
+  <title>Care Dispenser</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/img/care.ico">
+</head>
+
+<body>
+  {{> sAlert}}
+
+
+  {{> navbar}}
+  <div id="paginaPrincipal" class="container">
+
+    {{#if currentUser}}
+    {{ >listaContato}}
+    {{ >novoContato}}
+    {{else}}
+    {{> acesso}}
+    {{/if}}
+
+  </div>
+</body>
+
+<!-- COMPONENTES -->
+
+<template name="navbar">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+      aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a class="navbar-brand" href="#">
+        <img simg src="/img/logoC.png" alt="Care Disenser" class="navLogo d-inline-block align-top">
+        Care Dispenser
+      </a>
+    </div>
+    {{#if currentUser}}
+    <div>
+      <span class="navbar-text mr-2">Olá, {{fullName}}</span>
+      <button id="btnSair" class="btn btn-sm btn btn-outline-dark">Sair</button>
+    </div>
+    {{/if}}
+  </nav>
+</template>
+
+
+<template name="acesso">
+  <div class="text-center">
+    <img src="/img/care1.png" alt="Care Disenser" class="logo">
+    <h4>Seja bem-vindo :) </h4>
+    <div class="row">
+      <div class="col-lg-6">
+        <form id="login" class="form-center">
+          <small>Entre com seus dados de acesso</small>
+          <div class="form-group">
+            <input type="text" id="loginEmail" name="loginEmail" class="form-control" placeholder="Digite seu email">
+          </div>
+          <div class="form-group">
+            <input type="password" id="loginSenha" name="loginSenha" class="form-control" placeholder="Digite sua senha">
+          </div>
+          <button id="btnLogin" class="btn btn-outline-dark btn-block">Entrar</button>
+        </form>
+      </div>
+
+      <div class="col-lg-6">
+        <form id="cadastro" class="form-center">
+          <small>Faça seu cadastro</small>
+
+          <div class="form-group">
+            <input type="text" id="cadastroNome" name="cadastroNome" class="form-control" placeholder="Digite seu nome">
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="cadastroEmail" name="cadastroEmail" class="form-control" placeholder="Digite seu email">
+          </div>
+
+          <div class="form-group">
+            <input type="password" id="cadastroSenha" name="cadastroSenha" class="form-control" placeholder="Digite sua senha">
+          </div>
+
+          <button id="btnCadastrar" class="btn btn-outline-dark btn-block">Cadastrar</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</template>
+
+
+<template name="listaContato">
+  <section id="meusContatos">
+    
+    <h4><i class="fa fa-address-book"></i> Meus Contatos</h4>
+
+    <form id="busca" class="form-inline mb-3">
+      <h6>Filtrar por:</h6>
+      <div class="form-group ml-3 mx-sm-3">
+        <input type="text" id="buscaCelular" name="buscaCelular" class="form-control" placeholder="celular">
+      </div>
+      <button id="btnBuscar" class="btn btn-success"><i class="fa fa-search"></i></button>
+    </form>
+    {{#if minhaLista.count}}
+    <table class="table">
+      <thead>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Celular</th>
+        <th>Tipo de contato</th>
+        <th>Ações</th>
+      </thead>
+      <tbody>
+        {{#each minhaLista}}
+        <tr>
+          <td>{{nome}}</td>
+          <td>{{email}}</td>
+          <td>{{celular}}</td>
+          <td><i class="fa {{retornaIcone tipo}}"></i> {{tipo}}</td>
+          <td><button class="btn btn-sm btn-outline-danger" id="deletarContato"><i class="fa fa-trash"></i></button></td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{else}}
+    <div class="alert alert-warning" role="alert">
+        <i class="fa fa-exclamation-triangle"></i>
+      <p>Nenhum contato encontrado.</p>
+    </div>
+    {{/if}}
+
+  </section>
+</template>
+
+
+<template name="novoContato">
+  <h4><i class="fa fa-save"></i> Novo Contato</h4>
+
+  <form name="novoContato">
+
+    <div class="form-group">
+      <input name="nome" id="nome" class="form-control form-control-sm" type="text" placeholder="Nome completo">
+    </div>
+
+    <div class="form-group">
+      <input name="email" id="email" class="form-control form-control-sm" type="text" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <input name="celular" id="celular" class="form-control form-control-sm" type="text" placeholder="Celular"
+        data-test="celular">
+    </div>
+    <div class="form-group">
+      <select name="tipo" id="tipo" class="form-control form-control-sm">
+        <option value="" disabled selected>Selecione</option>
+        <option value="Whats">Whats</option>
+        <option value="Telegram">Telegram</option>
+        <option value="SMS">SMS</option>
+      </select>
+      <small class="form-text text-muted">Você deve selecionar pelo menos um tipo de contato.</small>
+    </div>
+    <input id="salvarContato" type="submit" class="btn btn-success" value="Adicionar Contato">
+  </form>
+</template>
