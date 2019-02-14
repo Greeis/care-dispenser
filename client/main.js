@@ -6,7 +6,6 @@ const Contato = new Mongo.Collection('contatos');
 
 import './main.html'
 
-
 Meteor.startup(function () {
 
     sAlert.config({
@@ -14,14 +13,11 @@ Meteor.startup(function () {
         position: 'bottom',
         timeout: 5000
     })
+
 })
 
-
-// events = ações a usuario
-//helper = informação para obter na tela 
-
 Template.navbar.events({
-    'click #btnSair'(event, instance) {
+    'click #botaoSair'(event, instance) {
         event.preventDefault();
         Meteor.logout();
     }
@@ -29,13 +25,13 @@ Template.navbar.events({
 
 Template.navbar.helpers({
     fullName() {
-        return Meteor.user().profile.name; // retorna o nome do usuario da função do meteor account
+        return Meteor.user().profile.name;
     }
 })
 
 Template.acesso.events({
 
-    'click #btnLogin'(event, instance) {
+    'click #botaoLogin'(event, instance) {
         event.preventDefault();
 
         var email = $('#loginEmail').val();
@@ -50,7 +46,8 @@ Template.acesso.events({
         })
 
     },
-    'click #btnCadastrar'(event, instance) {
+
+    'click #botaoCadastrar'(event, instance) {
         event.preventDefault();
 
         var nome = $('#cadastroNome').val();
@@ -66,36 +63,41 @@ Template.acesso.events({
         Accounts.createUser(user, function (err) {
             if (err) {
                 if (err.reason = 'Email already exists.') {
-                    sAlert.error('Você está cadastrado.');
+                    sAlert.error('Você já está cadastrado.');
                 } else {
                     sAlert.error(err.reason);
                 }
             } else {
-                sAlert.success('Cadastro efetuado com sucesso');
+                console.log('tudo certo');
             }
         })
+
+
     }
 
 })
 
-Template.listaContato.onCreated(function () { // quando ele criar uma lista ele executa esse código = construtor
-    this.contatos = new ReactiveVar(Contato.find({ dono: Meteor.user()._id }));  //busca apenas os contatos do usuario
+Template.listaContato.onCreated(function () {
+    this.contatos = new ReactiveVar(Contato.find({ dono: Meteor.user()._id }));
+    // this.nome = new ReactiveVar('Fernando');
+    // this.contador = new ReactiveVar(0);
 })
-
 
 Template.listaContato.helpers({
     'minhaLista': function () {
-        // var contatos = [
-        //     { nome: 'Graziele', email: 'graziele@gmail.com', celular: '11999990909', tipo: 'SMS' },
-        //     { nome: 'Bruna', email: 'bruna@gmail.com', celular: '11999990999', tipo: 'Whats' },
-        //     { nome: 'Breno', email: 'breno@gmail.com', celular: '11999990966', tipo: 'Telegram' },
-        //     { nome: 'Brenda', email: 'brenda@gmail.com', celular: '11999990988', tipo: 'SMS' }
-        // ]
-        // var contatos = Contato.find({dono: Meteor.user()._id}).fetch();
-
         return Template.instance().contatos.get();
     },
+
+    // 'pegaContador': function() {
+    //     return Template.instance().contador.get();
+    // },
+
+    // 'pegaNome': function() {
+    //     return Template.instance().nome.get();
+    // },
+
     'retornaIcone': function (tipo) {
+
         switch (tipo) {
             case 'Whats':
                 return 'fa-whatsapp';
@@ -109,9 +111,18 @@ Template.listaContato.helpers({
     }
 })
 
-
 Template.listaContato.events({
-    'click #btnBuscar'(event, instance) {
+
+    // 'click #botaoContador'(event, instance) {
+    //     event.preventDefault();
+
+    //     var contador = Template.instance().contador.get();
+
+    //     instance.contador.set(contador + 1);
+
+    // },
+
+    'click #botaoBuscar'(event, instance) {
         event.preventDefault();
 
         var celular = $('#buscaCelular').val();
@@ -125,19 +136,20 @@ Template.listaContato.events({
         var resultado = Contato.find(query);
 
         instance.contatos.set(resultado);
-
     },
+
     'click #deletarContato'(event, instance) {
         event.preventDefault();
+
         swal({
-            title: 'Você tem certeza?',
-            text: "Se confirmar, não terá volta.",
+            title: 'Você está certo disso?',
+            text: "Se confirmar não terá volta!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Sim, pode apagar!',
-            cancelButtonText: 'Cancelar'
+            cancelButtonText: 'Não, deixa queto!'
         }).then((result) => {
             if (result.value) {
                 Meteor.call('removerContato', this._id, function (err, res) {
@@ -153,43 +165,36 @@ Template.listaContato.events({
     }
 })
 
-
-Template.novoContato.events({ // criando eventos
-    'click #salvarContato'(event, instance) { // quando clicar no botão salvar contato
-        event.preventDefault(); //cancela a execução assincrona.
-
-        // pegando os dados do novo contato...criando obj json      
+Template.novoContato.events({
+    'click #salvarContato'(event, instance) {
+        event.preventDefault();
 
         var form = {
             nome: $('input[name=nome]').val(),
             email: $('input[name=email]').val(),
-            celular: $('input[name=celular]').val(),
-            tipo: $('select[name=tipo]').val()
+            celular: $('input[name=celular').val(),
+            tipo: $('select[name=tipo').val()
         }
-        console.log(form)
 
         if (form.nome == "") {
-            sAlert.warning('Ops. O nome deve ser preenchido.')
-            return false;
-        } else if (form.email == "") {
-            sAlert.warning('Ops. O email deve ser preenchido.')
+            sAlert.info('Ops. O nome deve ser preenchido.')
             return false;
         } else if (form.celular == "") {
-            sAlert.warning('Ops. O celular deve ser preenchido.')
+            sAlert.info('Ops. O celular deve ser preenchido.');
             return false;
         } else if (form.tipo == null) {
-            sAlert.warning('Ops. Por favor selecione um tipo de contato.')
+            sAlert.info('Ops. Por favor selecione um tipo de contato.')
             return false;
         }
-
-        // Verificando
 
         Meteor.call('inserirContato', form, function (err, res) {
             if (err) {
                 sAlert.error(err.reason)
+                return false;
             } else {
                 sAlert.success('Contato cadastrado com sucesso.')
             }
         })
     }
 });
+
