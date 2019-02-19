@@ -8,7 +8,7 @@
 
 
   {{> navbar}}
-  <div id="paginaPrincipal" class="container">
+  <div id="paginaPrincipal" class="container-fluid">
 
     {{#if currentUser}}
     {{ >listaContato}}
@@ -36,7 +36,7 @@
     </div>
     {{#if currentUser}}
     <div>
-      <span class="navbar-text mr-2">Olá, {{fullName}}</span>
+      <span class="navbar-text mr-2" id=nomeUsuario>Olá, {{fullName}}</span>
       <button id="btnSair" class="btn btn-sm btn btn-outline-dark">Sair</button>
     </div>
     {{/if}}

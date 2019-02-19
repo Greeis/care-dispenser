@@ -43,7 +43,16 @@ Template.acesso.events({
 
         Meteor.loginWithPassword(email, senha, function (err) {
             if (err) {
-                sAlert.error(err.reason)
+                if (err.reason == 'Incorrect password') {
+                    sAlert.error('Email e/ou senha incorretos.');
+                    console.log(err.reason);
+                } else if (err.reason == 'User not found'){
+                    sAlert.error('Email e/ou senha incorretos.');
+                    console.log(err.reason);
+                    
+                } else{
+                    sAlert.error('Preencha todos os campos com dados válidos.');
+                } 
             } else {
                 sAlert.success('Olá, você foi autenticado.')
             }

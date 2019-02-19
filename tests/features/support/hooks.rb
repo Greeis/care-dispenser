@@ -6,6 +6,7 @@ end
 After('@logout') do
     click_button 'Sair'
     page.has_css?('form[id=login]') #verifica se esta no formulario de login
+    sleep 3
 end
 
 After ('@inserirContato') do

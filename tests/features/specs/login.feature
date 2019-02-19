@@ -1,24 +1,26 @@
 #language: pt
-@todo
+@login
 Funcionalidade: Login
     Sendo um usuário já cadastrado
     Posso acessar o sistema com email e senha
     Para que somente eu possa ver meus contatos e gerenciar minha agenda
 
+    Contexto: Home
+        Dado que eu acesso a pagina principal
+    @test @logout
     Cenario: Login do usuário
 
-        Dado que eu acesso a pagina principal
-        Quando faço meu cadastro com "graaziele@gra.io" e senha "123456"
+        Quando faço login com "graziele@teste.io" e "123456"
         Então sou autenticado com sucesso
-    
-    Cenario: Email não cadastrado
 
-        Dado que eu acesso a pagina principal
-        Quando faço login com email não cadastrado
-        Então eu vejo a mensagem de alerta "Email e/ou senha incorretos"
+    @tentativa_login
+    Esquema do Cenario: Tentativa de login
 
-    Cenario: Senha inválida
-
-        Dado que eu acesso a pagina principal
-        Quando faço login com senha incorreta
-        Então eu vejo a mensagem de alerta "Email e/ou senha incorretos"
+        Quando faço login com '<email>' e '<senha>'
+        Então vejo a seguinte mensagem de alerta '<saida>'
+        
+    Exemplos:
+      | email             | senha   | saida                                       |
+      | graziele@teste.io | xpto123 | Email e/ou senha incorretos.                |
+      | graziele          | 123456  | Email e/ou senha incorretos.                |
+      |                   |         | Preencha todos os campos com dados válidos. |

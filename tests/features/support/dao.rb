@@ -27,7 +27,7 @@ class DAO
     end
 
     def contatos
-        conecta[:contatos] # conecta a colecion contato
+        conecta[:contatos] # conecta a collecion contato
     end
 
     def usuarios

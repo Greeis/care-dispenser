@@ -38,3 +38,7 @@
 .alert i {
   font-size: 30px;
 }
+
+@media only screen and (max-device-width: 900px) {
+  /* .menu { width:100%; } */
+  }

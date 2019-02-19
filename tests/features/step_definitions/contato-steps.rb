@@ -112,7 +112,7 @@
   
   Então("devo ver {string} como mensagem de alerta") do |msg_alerta|
     @alertas.each do |a|
-      expect(a). to eql msg_alerta
+      expect(a).to eql msg_alerta
     end
   end
   
