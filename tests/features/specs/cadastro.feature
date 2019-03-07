@@ -8,7 +8,8 @@ Funcionalidade: Cadastro
     Cenario: Cadastro simples
     
         Dado que eu acesso a pagina principal
-        Quando faço meu cadastro com "graaziele@gra.io" e senha "123456"
+        
+        Quando faço meu cadastro com "graziele@teste.io" e "123456"
         Então sou autenticado com sucesso.
 
     Cenario: Usuário já cadastrado

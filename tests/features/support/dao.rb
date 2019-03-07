@@ -19,7 +19,6 @@ class DAO
         contatos.delete_many('dono' => u[:_id])
     end
 
-
     private
     def conecta
         Mongo::Logger.logger = Logger.new('log/mongo.log')
@@ -32,5 +31,10 @@ class DAO
 
     def usuarios
         conecta[:users]
+    end
+
+    def remover_usr(email)
+        usr 
+        usr.delete_one('address' => email)
     end
 end
