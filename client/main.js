@@ -72,6 +72,17 @@ Template.acesso.events({
             profile: { name: nome }
         }
 
+        if (user.profile.name == "") {
+            sAlert.warning('Ops. O nome deve ser preenchido.')
+            return false;
+        } else if (user.email == "") {
+            sAlert.warning('Ops. O email deve ser preenchido.')
+            return false;
+        } else if (user.password == "") {
+            sAlert.warning('Ops. A senha deve ser preenchido.')
+            return false;
+        }
+
         Accounts.createUser(user, function (err) {
             if (err) {
                 if (err.reason = 'Email already exists.') {

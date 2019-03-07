@@ -48,6 +48,14 @@ img {
   font-size: 30px;
 }
 
-@media only screen and (max-device-width: 900px) {
-  /* .menu { width:100%; } */
+/* tamanho da letra */
+@media (min-width: 600px) {
+  html {
+      font-size: 1.125em;
   }
+}
+@media (min-width: 1000px) {
+  html {
+      font-size: 1.25em;
+  }
+}
