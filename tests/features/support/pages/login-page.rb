@@ -16,4 +16,11 @@ class LoginPage
     def confirmaLogin
         find('#nomeUsuario')
     end
+
+    def cadastrar_usuario(nome,email,senha)
+        find('#cadastroNome').set nome
+        find('#cadastroEmail').set email
+        find('#cadastroSenha').set senha
+        click_button 'Cadastrar'   
+    end
 end 

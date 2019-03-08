@@ -8,7 +8,7 @@ Funcionalidade: Novo Contato
     @sprint1 @logout @inserirContato 
     Esquema do Cenario: Novo contato
 
-        Dado que estou autenticado com "justica@gmail.com" e "1234"
+        Dado que estou autenticado com "graziele@teste.io" e "123456"
         E que possuo o seguinte contato:
             | nome    | <nome>    |
             | email   | <email>   |
@@ -26,7 +26,7 @@ Funcionalidade: Novo Contato
     @sprint11 @logout
     Cenario: Lista de contatos
 
-        Dado que estou autenticado com "justica_@gmail.com" e "1234"
+        Dado que estou autenticado com "graziele@teste.io" e "123456"
         Quando faço o cadastro dos seguintes contatos:
             | nome            | email             | celular     | tipo     |
             | Edson Almeida   | edson@gmail.com   | 1166991001  | Whats    |
@@ -39,7 +39,7 @@ Funcionalidade: Novo Contato
     @sprint2
     Esquema do Cenário: Campos obrigatórios
 
-        Dado que estou autenticado com "justica@gmail.com" e "1234"
+        Dado que estou autenticado com "graziele@teste.io" e "123456"
         E que possuo o seguinte contato:
             | nome    | <nome>    |
             | email   | <email>   |
@@ -59,7 +59,7 @@ Funcionalidade: Novo Contato
     @sprint3 @logout 
     Cenario: Celular não pode ser duplicado
         
-        Dado que estou autenticado com "justica@gmail.com" e "1234"
+        Dado que estou autenticado com "graziele@teste.io" e "123456"
         E que possuo o seguinte contato:
             | nome    | Graziele Almeida   |
             | email   | graziele@gmail.com |

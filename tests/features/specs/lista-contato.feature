@@ -8,7 +8,7 @@ Funcionalidade: Lista contatos
     @sprint4 @logout
     Cenario: Listar contatos
 
-        Dado que estou autenticado com "grazinha@gmail.com" e "1234"
+        Dado que estou autenticado com "justica_@gmail.com" e "1234"
         E tenho a seguinte lista de contatos para cadastro:
             | nome     | email           | celular    | tipo     |
             | Sidimara | sidi@gmail.com  | 2199991001 | Whats    |
@@ -19,7 +19,7 @@ Funcionalidade: Lista contatos
     @sprint5 @logout
     Cenario: Nenhum contato cadastrado
 
-        Dado que estou autenticado com "grazinha01@gmail.com" e "1234"
+        Dado que estou autenticado com "graziele@teste.io" e "123456"
         E não possuo contatos cadastrados
         Quando acesso a minha agenda
         Então devo ver a mensagem "Nenhum contato encontrado."
