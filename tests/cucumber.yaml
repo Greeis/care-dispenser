@@ -1,4 +1,9 @@
 ---
 default: -p dev
-dev: URL=http://localhost:3000
-sandbox: URL=https://care-dispenser.herokuapp.com
+local: -p json -p sandbox
+ci: -p json -p sandbox -p headless
+json: --format progress --format json --out=log/report.json
+dev: AMBIENTE=dev
+sandbox: AMBIENTE=sandbox
+headless: BROWSER=headless
+firefox: BROWSER=firefox

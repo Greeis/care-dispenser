@@ -1,6 +1,11 @@
+require_relative 'helpers'
+
+World(Helpers) # deixa os metodos helpers como nativos, metodos globais
+
 Before do
     @contato_page = ContatoPage.new
     @login_page = LoginPage.new
+    @api_uri = $env_file[$env_type]['web']
 end
 
 After('@logout') do

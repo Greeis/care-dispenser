@@ -1,4 +1,6 @@
   Dado("que estou autenticado com {string} e {string}") do |email, senha|
+    novo_usuario_api(email, senha)
+
     @login_page.acessa
     @login_page.logar(email,senha)
     expect(@contato_page.titulo).to eql 'Meus Contatos'

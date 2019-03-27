@@ -8,7 +8,7 @@ class ContatoPage
     end
 
     def salvar_contato (contato)
-        find('input[placeholder="Nome completo"').set contato[:nome]
+        find('#nome').set contato[:nome]
         find('#email').set contato[:email]
         find('input[data-test=celular]').set contato[:celular]
 
