@@ -25,3 +25,11 @@ After ('@inserirContato') do
     expect(res[:tipo]).to eql @novo_contato[:tipo]
 end
 
+After do |scenario|
+    nome = scenario.name.gsub(/[^A-Za-z0-9 ]/, '') #pega o nome de cenario e remove caracteres especiais em vazio
+    nome = nome.tr(' ', '_').downcase! # inclui o _ nos espacos
+    screenshot = "log/screenshots/#{nome}.png"
+    page.save_screenshot(screenshot)
+    embed(screenshot, 'image/png', 'Veja a evidência :)')
+  end
+

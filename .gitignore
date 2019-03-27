@@ -1,3 +1,5 @@
 node_modules/
 
 tests/log/*.log
+tests/log/*.json
+tests/log/screenshots
