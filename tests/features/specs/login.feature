@@ -7,7 +7,7 @@ Funcionalidade: Login
 
     Contexto: Home
         Dado que eu acesso a pagina principal
-    @test @logout
+    @smoke @logout
     Cenario: Login do usuário
 
         Quando faço login com "graziele@teste.io" e "123456"
