@@ -4,24 +4,24 @@ import { Mongo } from 'meteor/mongo';
 
 Meteor.startup(() => {
   
-  const Contato = new Mongo.Collection('contatos');
+  const Sintoma = new Mongo.Collection('sintomas');
 
   Meteor.methods({
-    'inserirContato'(contato){
+    'inserirSintoma'(sintoma){
       var usuario = Meteor.user(); // traz as informações do usuario logado  
-      var existe = Contato.findOne({ //verifica se já existe o contato 
-        celular: contato.celular, dono: usuario._id
+      var existe = Sintoma.findOne({ //verifica se já existe o sintoma no dia 
+        tipo: sintoma.tipo, data: sintoma.data, dono: usuario._id, 
       });
       
-      contato.dono = usuario._id; //quando é inserido um novo contato ele salva o id do usuario logado para vincular-lo com ele
+      sintoma.dono = usuario._id; //quando é inserido um novo sintoma ele salva o id do usuario logado para vincular-lo com ele
       if(existe){
-        throw new Meteor.Error(409, "Celular já cadastrado.")
+        throw new Meteor.Error(409, "Sintoma já cadastrado nesta data.")
       }else{
-        Contato.insert(contato);  // cadastra o contato
+        Sintoma.insert(sintoma);  // cadastra o sintoma
       }
     },
-    'removerContato'(contatoID) {
-      return Contato.remove({_id: contatoID});
+    'removerSintoma'(sintomaID) {
+      return Sintoma.remove({_id: sintomaID});
     }
   })
 });

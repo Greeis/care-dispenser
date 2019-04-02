@@ -13,8 +13,8 @@
   <div id="paginaPrincipal" class="container">
 
     {{#if currentUser}}
-    {{ >listaContato}}
-    {{ >novoContato}}
+    {{ >listaSintoma}}
+    {{ >novoSintoma}}
     {{else}}
     {{> acesso}}
     {{/if}}
@@ -33,12 +33,11 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <a class="navbar-brand" href="#">
         <img simg src="/img/logoC.png" alt="Care Disenser" class="navLogo d-inline-block align-top">
-        Care Dispenser
       </a>
     </div>
     {{#if currentUser}}
     <div>
-      <span class="navbar-text mr-2" id=nomeUsuario>Olá, {{fullName}}</span>
+      <span class="navbar-text mr-2" id=nomeUsuario>Olá paciente, {{fullName}}</span>
       <button id="btnSair" class="btn btn-sm btn btn-outline-dark">Sair</button>
     </div>
     {{/if}}
@@ -55,10 +54,12 @@
         <form id="login" class="form-center">
           <small>Entre com seus dados de acesso</small>
           <div class="form-group">
-            <input type="text" id="loginEmail" name="loginEmail" class="form-control form-control-sm" placeholder="Email">
+            <input type="text" id="loginEmail" name="loginEmail" class="form-control form-control-sm"
+              placeholder="Email">
           </div>
           <div class="form-group">
-            <input type="password" id="loginSenha" name="loginSenha" class="form-control form-control-sm" placeholder="Senha">
+            <input type="password" id="loginSenha" name="loginSenha" class="form-control form-control-sm"
+              placeholder="Senha">
           </div>
           <button id="btnLogin" class="btn btn-sm btn-outline-dark btn-block">Entrar</button>
         </form>
@@ -69,63 +70,66 @@
           <small>Faça seu cadastro</small>
 
           <div class="form-group">
-            <input type="text" id="cadastroNome" name="cadastroNome" class="form-control form-control-sm" placeholder="Nome completo">
+            <input type="text" id="cadastroNome" name="cadastroNome" class="form-control form-control-sm"
+              placeholder="Nome completo">
           </div>
 
           <div class="form-group">
-            <input type="text" id="cadastroEmail" name="cadastroEmail" class="form-control form-control-sm" placeholder="Email">
+            <input type="text" id="cadastroEmail" name="cadastroEmail" class="form-control form-control-sm"
+              placeholder="Email">
           </div>
 
           <div class="form-group">
-            <input type="password" id="cadastroSenha" name="cadastroSenha" class="form-control form-control-sm" placeholder="Senha">
+            <input type="password" id="cadastroSenha" name="cadastroSenha" class="form-control form-control-sm"
+              placeholder="Senha">
           </div>
 
           <button id="btnCadastrar" class="btn btn-sm btn-outline-dark btn-block" value>Cadastrar</button>
         </form>
       </div>
-
     </div>
   </div>
 </template>
 
 
-<template name="listaContato">
-  <section id="meusContatos">
-    
-    <h4><i class="fa fa-address-book"></i> Meus Contatos</h4>
+<template name="listaSintoma">
+  <section id="meusSintomas">
+
+    <h4><i class="fa fa-address-book"></i> Meus sintomas</h4>
 
     <form id="busca" class="form-inline mb-3">
       <h6>Filtrar por:</h6>
       <div class="form-group ml-3 mx-sm-3">
-        <input type="text" id="buscaCelular" name="buscaCelular" class="form-control" placeholder="celular">
+        <input type="date" id="buscaData" name="buscaData" class="form-control">
       </div>
       <button id="btnBuscar" class="btn btn-success"><i class="fa fa-search"></i></button>
     </form>
     {{#if minhaLista.count}}
     <table class="table">
       <thead>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Celular</th>
-        <th>Tipo de contato</th>
+        <th>Sintoma</th>
+        <th>Data</th>
+        <th>Hora</th>
+        <th>Duração</th>
         <th>Ações</th>
       </thead>
       <tbody>
         {{#each minhaLista}}
         <tr>
-          <td>{{nome}}</td>
-          <td>{{email}}</td>
-          <td>{{celular}}</td>
-          <td><i class="fa {{retornaIcone tipo}}"></i> {{tipo}}</td>
-          <td><button class="btn btn-sm btn-outline-danger" id="deletarContato"><i class="fa fa-trash"></i></button></td>
+          <td>{{tipo}}</td>
+          <td>{{data}}</td>
+          <td>{{hora}}</td>
+          <td>{{duracao}}</td>
+          <td><button class="btn btn-sm btn-outline-danger" id="deletarSintoma"><i class="fa fa-trash"></i></button>
+          </td>
         </tr>
         {{/each}}
       </tbody>
     </table>
     {{else}}
     <div class="alert alert-warning" role="alert">
-        <i class="fa fa-exclamation-triangle"></i>
-      <p>Nenhum contato encontrado.</p>
+      <i class="fa fa-exclamation-triangle"></i>
+      <p>Nenhum sintoma encontrado.</p>
     </div>
     {{/if}}
 
@@ -133,31 +137,45 @@
 </template>
 
 
-<template name="novoContato">
-  <h4><i class="fa fa-save"></i> Novo Contato</h4>
+<template name="novoSintoma">
+  <h4><i class="fa fa-save"></i> Sintomas</h4>
 
-  <form name="novoContato">
+  <form name="novoSintoma">
+    <div class="form-group">
 
-    <div class="form-group">
-      <input name="nome" id="nome" class="form-control form-control-sm" type="text" placeholder="Nome completo">
-    </div>
-
-    <div class="form-group">
-      <input name="email" id="email" class="form-control form-control-sm" type="text" placeholder="Email">
-    </div>
-    <div class="form-group">
-      <input name="celular" id="celular" class="form-control form-control-sm" type="text" placeholder="Celular"
-        data-test="celular">
-    </div>
-    <div class="form-group">
-      <select name="tipo" id="tipo" class="form-control form-control-sm">
-        <option value="" disabled selected>Selecione</option>
-        <option value="Whats">Whats</option>
-        <option value="Telegram">Telegram</option>
-        <option value="SMS">SMS</option>
+      <small class="form-text text-muted">Quais sintomas vocẽ apresentou?
+      </small>
+      <select name="tipoSintoma" id="tipoSintoma" class="form-control form-control-sm">
+        <option value="" disabled selected>Selecione o sintoma</option>
+        <option value="Perda de apetite">Perda de apetite</option>
+        <option value="Diarreia">Diarreia</option>
+        <option value="Vômito">Vômito</option>
+        <option value="Náusea">Náusea</option>
+        <option value="Estomatite (feridas na boca)">Estomatite (feridas na boca)</option>
+        <option value="Dor abdominal (dor na barriga)">Dor abdominal (dor na barriga) </option>
+        <option value="Inchaço">Inchaço</option>
+        <option value="Formigamento e adormecimento das palmas das mãos e plantas dos pés (síndrome mão-pé)">
+          Formigamento e adormecimento das palmas das mãos e plantas dos pés (síndrome mão-pé)
+        </option>
+        <option value="Cansaço">Cansaço</option>
+        <option value="Sono profundo">Sono profundo</option>
       </select>
-      <small class="form-text text-muted">Você deve selecionar pelo menos um tipo de contato.</small>
     </div>
-    <input id="salvarContato" type="submit" class="btn btn-success" value="Adicionar Contato">
+
+    <div class="form-group">
+      <small class="form-text text-muted" >Que dia? </small>
+      <input type="date" name="dataSintoma" id="dataSintoma" class="form-control form-control-sm" maxlength="10"/>
+    </div>
+
+    <div class="form-group">
+      <small class="form-text text-muted">Que horas? </small>
+      <input type="time" name="horarioSintoma" id="horarioSintoma" class="form-control form-control-sm" />
+    </div>
+
+    <div class="form-group">
+      <small class="form-text text-muted">Durou quanto tempo? </small>
+      <input type="time" name="duracaoSintoma" id="duracaoSintoma" class="form-control form-control-sm" />
+    </div>
+    <input id="salvarSintoma" type="submit" class="btn btn-success" value="Adicionar Sintoma">
   </form>
 </template>

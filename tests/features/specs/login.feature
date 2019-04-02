@@ -3,7 +3,7 @@
 Funcionalidade: Login
     Sendo um usuário já cadastrado
     Posso acessar o sistema com email e senha
-    Para que somente eu possa ver meus contatos e gerenciar minha agenda
+    Para que somente eu possa ver meus alarmes e gerenciar os sintomas
 
     Contexto: Home
         Dado que eu acesso a pagina principal
