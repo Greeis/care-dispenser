@@ -6,24 +6,6 @@ const Sintoma = new Mongo.Collection('sintomas');
 
 import './main.html'
 
-function mascaraData(campoData)
-{
-	var data = campoData.value;
-	if(data.length == 2)
-	{
-		data += '/';
-		document.forms[0].data.value = data;
-		return true;
-	}
-	if(data.length == 5)
-	{
-		data += '/';
-		document.forms[0].data.value = data;
-		return true;
-	}
-	
-}
-
 Meteor.startup(function () {
 
     sAlert.config({
@@ -32,6 +14,10 @@ Meteor.startup(function () {
         timeout: 5000
     })
 })
+
+Template.registerHelper('formatDate', function(date) {
+    return moment(date).format('DD/MM/YYYY');
+  });
 
 
 // events = ações a usuario
@@ -62,6 +48,7 @@ Template.acesso.events({
             if (err) {
                 if (err.reason == 'Incorrect password') {
                     sAlert.error('Email e/ou senha incorretos.');
+                    document.getElementById('cadastroNome').value ="";
                     console.log(err.reason);
                 } else if (err.reason == 'User not found'){
                     sAlert.error('Email e/ou senha incorretos.');
@@ -104,6 +91,9 @@ Template.acesso.events({
             if (err) {
                 if (err.reason = 'Email already exists.') {
                     sAlert.error('Você está cadastrado.');
+                    document.getElementById('cadastroNome').value ="";
+                    document.getElementById('cadastroEmail').value ="";
+                    document.getElementById('cadastroSenha').value ="";
                 } else {
                     sAlert.error(err.reason);
                 }
@@ -125,7 +115,6 @@ Template.listaSintoma.helpers({
         return Template.instance().sintomas.get();
     }
 })
-
 
 Template.listaSintoma.events({
     'click #btnBuscar'(event, instance) {
@@ -170,6 +159,15 @@ Template.listaSintoma.events({
     }
 })
 
+Template.listaSintoma.rendered = function(){
+    VMasker(this.find("[data-vm-mask-date]")).maskPattern("99/99/9999");
+}
+
+Template.novoSintoma.rendered = function(){
+    VMasker(this.find("[data-vm-mask-date]")).maskPattern("99/99/9999");
+    VMasker(this.find("[data-vm-mask-time]")).maskPattern("99:99");
+    VMasker(this.find("[data-vm-mask-timer]")).maskPattern("99:99");
+}
 
 Template.novoSintoma.events({ // criando eventos
     'click #salvarSintoma'(event, instance) { // quando clicar no botão salvar Sintoma
@@ -205,7 +203,11 @@ Template.novoSintoma.events({ // criando eventos
             if (err) {
                 sAlert.error(err.reason)
             } else {
-                sAlert.success('Sintoma cadastrado com sucesso.')
+                sAlert.success('Sintoma cadastrado com sucesso.');
+                document.getElementById('tipoSintoma').value ="";
+                document.getElementById('dataSintoma').value ="";
+                document.getElementById('horarioSintoma').value ="";
+                document.getElementById('duracaoSintoma').value ="";
             }
         })
     }

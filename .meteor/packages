@@ -24,3 +24,4 @@ accounts-base
 accounts-password
 reactive-var
 nimble:restivus
+bankfacil:vanilla-masker

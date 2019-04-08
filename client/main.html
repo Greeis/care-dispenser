@@ -100,7 +100,7 @@
     <form id="busca" class="form-inline mb-3">
       <h6>Filtrar por:</h6>
       <div class="form-group ml-3 mx-sm-3">
-        <input type="date" id="buscaData" name="buscaData" class="form-control">
+        <input type="text" id="buscaData" name="buscaData" class="form-control" data-vm-mask-date> 
       </div>
       <button id="btnBuscar" class="btn btn-success"><i class="fa fa-search"></i></button>
     </form>
@@ -164,17 +164,17 @@
 
     <div class="form-group">
       <small class="form-text text-muted" >Que dia? </small>
-      <input type="date" name="dataSintoma" id="dataSintoma" class="form-control form-control-sm" maxlength="10"/>
+      <input type="text" name="dataSintoma" id="dataSintoma" class="form-control form-control-sm" data-vm-mask-date/>
     </div>
 
     <div class="form-group">
       <small class="form-text text-muted">Que horas? </small>
-      <input type="time" name="horarioSintoma" id="horarioSintoma" class="form-control form-control-sm" />
+      <input type="text" name="horarioSintoma" id="horarioSintoma" class="form-control form-control-sm" data-vm-mask-time/>
     </div>
 
     <div class="form-group">
       <small class="form-text text-muted">Durou quanto tempo? </small>
-      <input type="time" name="duracaoSintoma" id="duracaoSintoma" class="form-control form-control-sm" />
+      <input type="text" name="duracaoSintoma" id="duracaoSintoma" class="form-control form-control-sm" data-vm-mask-timer/>
     </div>
     <input id="salvarSintoma" type="submit" class="btn btn-success" value="Adicionar Sintoma">
   </form>
